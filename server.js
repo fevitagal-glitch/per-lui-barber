@@ -36,7 +36,14 @@ app.get("/bookings", (req, res) => {
 
 app.post("/bookings", (req, res) => {
     const db = readDB();
-    db.bookings.push({ id: Date.now(), ...req.body });
+
+    db.bookings.push({
+        id: Date.now(),
+        name: req.body.name,
+        cut: req.body.cut,
+        time: req.body.time
+    });
+
     writeDB(db);
     res.json({ ok: true });
 });
