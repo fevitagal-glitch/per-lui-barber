@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Per Lui</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Admin 💈</h1>
+</header>
+
+<div class="container">
+
+    <input id="cutName" placeholder="Nome taglio">
+    <input id="cutPrice" placeholder="Prezzo">
+    <button onclick="addCut()">Aggiungi</button>
+
+    <div id="cuts"></div>
+
+</div>
+
+<script>
+async function load() {
+    const res = await fetch("/cuts");
+    const cuts = await res.json();
+
+    document.getElementById("cuts").innerHTML = cuts.map(c =>
+        `<div class="card">
+            ${c.name} - €${c.price}
+            <button onclick="del(${c.id})">X</button>
+        </div>`
+    ).join("");
+}
+
+async function addCut() {
+    await fetch("/cuts", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+            name: cutName.value,
+            price: cutPrice.value
+        })
+    });
+    load();
+}
+
+async function del(id) {
+    await fetch("/cuts/" + id, { method: "DELETE" });
+    load();
+}
+
+load();
+</script>
+
+</body>
+</html>
