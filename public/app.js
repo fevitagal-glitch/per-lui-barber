@@ -12,11 +12,8 @@ async function loadCuts() {
 }
 
 async function book() {
-    console.log({
-  name: document.getElementById("name").value,
-  cut: document.getElementById("cutSelect").value,
-  time: document.getElementById("time").value
-});
+ 
+
     await fetch("/bookings", {
         method: "POST",
         headers: {"Content-Type":"application/json"},
