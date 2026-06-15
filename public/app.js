@@ -14,17 +14,24 @@ async function loadCuts() {
 async function book() {
  
 
-    await fetch("/bookings", {
+   function book() {
+    const name = document.getElementById("name").value;
+    const cut = document.getElementById("cutSelect").value;
+    const time = document.getElementById("time").value;
+
+    console.log(name, cut, time);
+
+    fetch("/bookings", {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-            name: name.value,
-            cut: cutSelect.value,
-            time: time.value
+            name,
+            cut,
+            time
         })
     });
-
-    alert("Prenotazione inviata 💈");
 }
 
 loadCuts();
