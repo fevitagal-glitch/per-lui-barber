@@ -8,6 +8,7 @@
 
 <header>
     <h1>Admin 💈</h1>
+
 </header>
 
 <div class="container">
@@ -17,11 +18,28 @@
     <button onclick="addCut()">Aggiungi</button>
 
     <div id="cuts"></div>
-
+<h2>Prenotazioni 💈</h2>
+<div id="bookings"></div>
 </div>
 
 <script>
-async function load() {
+async function loadBookings() {
+    const res = await fetch("/bookings");
+    const data = await res.json();
+
+    document.getElementById("bookings").innerHTML = data.length
+        ? data.map(b =>
+            `<div class="card">
+                <b>Nome:</b> ${b.name}<br>
+                <b>Taglio:</b> ${b.cut}<br>
+                <b>Ora:</b> ${b.time}
+            </div>`
+        ).join("")
+        : "<p>Nessuna prenotazione</p>";
+}
+
+loadBookings();
+    async function load() {
     const res = await fetch("/cuts");
     const cuts = await res.json();
 
@@ -50,7 +68,7 @@ async function del(id) {
     load();
 }
 
-load();
+load();loadBookings();
 </script>
 
 </body>
