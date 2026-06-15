@@ -1,0 +1,7 @@
+{
+  "cuts": [
+    { "id": 1, "name": "Taglio classico", "price": 15 },
+    { "id": 2, "name": "Fade moderno", "price": 20 }
+  ],
+  "bookings": []
+}
